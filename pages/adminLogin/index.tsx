@@ -1,9 +1,12 @@
 import LoginForm from "../../components/LoginForm";
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import BaseAdminLayout from "../../components/BaseAdminLayout/BaseAdminLayout";
 import { NextPageWithLayout } from "../_app";
 
 const AdminLogin: NextPageWithLayout = () => {
+  useEffect(() => {
+    const response = fetch("/api/hello");
+  }, []);
   return (
     <>
       <LoginForm />
