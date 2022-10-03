@@ -5,7 +5,12 @@ import { NextPageWithLayout } from "../_app";
 
 const AdminLogin: NextPageWithLayout = () => {
   useEffect(() => {
-    const response = fetch("/api/hello");
+    const fetcher = async () => {
+      const res = await fetch("/api/createUser");
+      const data = await res.json();
+      console.log(data);
+    };
+    fetcher();
   }, []);
   return (
     <>
