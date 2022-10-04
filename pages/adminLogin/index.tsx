@@ -4,14 +4,6 @@ import BaseAdminLayout from "../../components/BaseAdminLayout/BaseAdminLayout";
 import { NextPageWithLayout } from "../_app";
 
 const AdminLogin: NextPageWithLayout = () => {
-  useEffect(() => {
-    const fetcher = async () => {
-      const res = await fetch("/api/createUser");
-      const data = await res.json();
-      console.log(data);
-    };
-    fetcher();
-  }, []);
   return (
     <>
       <LoginForm />

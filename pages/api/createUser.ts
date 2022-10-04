@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import { MongoClient, ServerApiVersion } from "mongodb";
+import bcrypt from "bcrypt";
 
 type Data = {
   name: string;
@@ -15,13 +16,25 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   try {
-    await client.connect();
-    const database = client.db(process.env.DB_NAME);
-    const users = database.collection(process.env.USERS_COLLECTION as string);
-    const thisUser = users.find({ userName: "mona" });
-    console.log("users", thisUser);
-    // @ts-ignore
-    res.status(200).json(thisUser);
+    await bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash("Udi is my favorite son in law!", salt, async function (err, hash) {
+        await client.connect();
+        const database = client.db(process.env.DB_NAME);
+        const users = database.collection(
+          process.env.USERS_COLLECTION as string
+        );
+        const result = await users.updateOne(
+          { userName: "mely" },
+          {
+            $addToSet: {
+              password: hash,
+            },
+          }
+        );
+        console.log("result", result);
+      });
+    });
+    res.status(200).json({ name: "success" });
   } finally {
     await client.close();
   }
