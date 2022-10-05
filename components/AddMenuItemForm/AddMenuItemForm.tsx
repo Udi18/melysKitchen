@@ -39,7 +39,7 @@ export default function AddMenuItemForm() {
         setAlert(`Successfully added ${newDish.name} to the full menu`);
         setNewDish({ ...newDishResetObject });
       } else {
-        throw new Error();
+        throw new Error(response.statusText);
       }
     } catch (error) {
       setAlert(`Failed adding ${newDish.name} to the full menu`);
@@ -134,8 +134,10 @@ export default function AddMenuItemForm() {
           fullWidth
           id="imageLink-input"
           variant="outlined"
+          type="url"
           name="imageLink"
           value={newDish.imageLink}
+          label="Image url"
         />
         <Button
           disabled={disabled}
