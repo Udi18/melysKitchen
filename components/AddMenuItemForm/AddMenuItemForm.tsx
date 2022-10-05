@@ -1,16 +1,20 @@
 import {
+  Alert,
   Button,
   FormControlLabel,
   Radio,
   RadioGroup,
+  Snackbar,
   TextField,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import DinnerDiningIcon from "@mui/icons-material/DinnerDining";
 import { newDishResetObject, useNewDish } from "../../atoms/newDish";
+import { useState } from "react";
 
 export default function AddMenuItemForm() {
   const [newDish, setNewDish] = useNewDish();
+  const [alert, setAlert] = useState<string | undefined>();
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const nameOfField = event.target.name as keyof NewDish;
     setNewDish((dish) => {
@@ -18,6 +22,9 @@ export default function AddMenuItemForm() {
       dish[nameOfField] =
         nameOfField === "price" ? +event.target.value : event.target.value;
     });
+  };
+  const clearAlert = () => {
+    setAlert(undefined);
   };
   const createNewDish = async () => {
     try {
@@ -29,9 +36,13 @@ export default function AddMenuItemForm() {
         body: JSON.stringify(newDish),
       });
       if (response.status === 200) {
+        setAlert(`Successfully added ${newDish.name} to the full menu`);
         setNewDish({ ...newDishResetObject });
+      } else {
+        throw new Error();
       }
     } catch (error) {
+      setAlert(`Failed adding ${newDish.name} to the full menu`);
       console.error(error);
     }
   };
@@ -85,7 +96,7 @@ export default function AddMenuItemForm() {
           variant="outlined"
           type="number"
           name="price"
-          value={newDish.price || ""}
+          value={newDish.price}
         />
         <RadioGroup
           aria-labelledby="food-type-radio-group"
@@ -124,6 +135,7 @@ export default function AddMenuItemForm() {
           id="imageLink-input"
           variant="outlined"
           name="imageLink"
+          value={newDish.imageLink}
         />
         <Button
           disabled={disabled}
@@ -134,6 +146,11 @@ export default function AddMenuItemForm() {
           Add Item
         </Button>
       </Box>
+      <Snackbar open={!!alert} autoHideDuration={6000} onClose={clearAlert}>
+        <Alert onClose={clearAlert} severity="error" sx={{ width: "100%" }}>
+          {alert}
+        </Alert>
+      </Snackbar>
     </>
   );
 }
