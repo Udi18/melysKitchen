@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai/immer";
 
-export type DishType = "entre" | "dessert" | "side" | "drink" | "";
+export type DishType = "entree" | "dessert" | "side" | "drink" | "";
 export interface NewDish {
   name: string;
   description: string;

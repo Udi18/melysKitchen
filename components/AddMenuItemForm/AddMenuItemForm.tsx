@@ -91,9 +91,9 @@ export default function AddMenuItemForm() {
           row
         >
           <FormControlLabel
-            value="entre"
+            value="entree"
             control={<Radio onChange={handleChange} />}
-            label="Entre"
+            label="Entree"
             name="type"
           />
           <FormControlLabel
