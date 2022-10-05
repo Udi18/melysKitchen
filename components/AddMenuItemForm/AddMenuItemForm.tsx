@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import DinnerDiningIcon from "@mui/icons-material/DinnerDining";
-import { useNewDish } from "../../atoms/newDish";
+import { newDishResetObject, useNewDish } from "../../atoms/newDish";
 
 export default function AddMenuItemForm() {
   const [newDish, setNewDish] = useNewDish();
@@ -19,15 +19,18 @@ export default function AddMenuItemForm() {
         nameOfField === "price" ? +event.target.value : event.target.value;
     });
   };
-  const createNewDish = () => {
+  const createNewDish = async () => {
     try {
-      const response = fetch("/api/insertDish", {
+      const response = await fetch("/api/insertDish", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(newDish),
       });
+      if (response.status === 200) {
+        setNewDish({ ...newDishResetObject });
+      }
     } catch (error) {
       console.error(error);
     }
