@@ -1,19 +1,27 @@
 import { ReactElement, useEffect, useState } from "react";
 import BaseAdminLayout from "../../components/BaseAdminLayout/BaseAdminLayout";
+import DishCard from "../../components/DishCard";
 import { NextPageWithLayout } from "../_app";
-import AddMenuItemForm from "../../components/AddMenuItemForm";
 
 const ManageMenu: NextPageWithLayout = () => {
-  const [data, setData] = useState<string | undefined>();
+  const [dishes, setDishes] = useState<Dish[]>();
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch("/api/dishes");
       const data = await response.json();
-      setData(JSON.stringify(data));
+      setDishes(data.dishes as Dish[]);
     };
     fetchData();
   }, []);
-  return <div>{data}</div>;
+  return (
+    <div>
+      {dishes
+        ? dishes?.map((dish, index) => (
+            <DishCard key={`key-${index}`} {...dish} />
+          ))
+        : ""}
+    </div>
+  );
 };
 
 ManageMenu.getLayout = function getLayout(page: ReactElement) {
