@@ -7,6 +7,7 @@ export const newDishAtom = atomWithImmer<NewDish>({
   price: "",
   size: "",
   type: "",
+  imageLink: "",
 });
 
 export const useNewDish = () => useAtom(newDishAtom);

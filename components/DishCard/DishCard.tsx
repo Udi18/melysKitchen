@@ -7,11 +7,11 @@ import Typography from "@mui/material/Typography";
 
 export default function DishCard(dish: Dish) {
   return (
-    <Card sx={{ display: "flex" }}>
+    <Card sx={{ display: "flex", mt: 2 }}>
       <CardMedia
         component="img"
         sx={{ width: 151 }}
-        image="/static/images/cards/live-from-space.jpg"
+        image={dish.imageLink}
         alt={dish.description}
       />
       <Box sx={{ display: "flex", flexDirection: "column" }}>

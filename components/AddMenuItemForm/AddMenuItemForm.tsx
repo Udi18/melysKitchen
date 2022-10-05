@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import DinnerDiningIcon from "@mui/icons-material/DinnerDining";
-import { useNewDish, NewDish } from "../../atoms/newDish";
+import { useNewDish } from "../../atoms/newDish";
 
 export default function AddMenuItemForm() {
   const [newDish, setNewDish] = useNewDish();
@@ -118,9 +118,9 @@ export default function AddMenuItemForm() {
         <TextField
           onChange={handleChange}
           fullWidth
-          id="image-input"
+          id="imageLink-input"
           variant="outlined"
-          inputProps={{ accept: "image/*", type: "file" }}
+          name="imageLink"
         />
         <Button
           disabled={disabled}
