@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { MongoClient, ServerApiVersion } from "mongodb";
-import { NewDish } from "../../atoms/newDish";
 
 const mongoUrl = process.env.MONGODB_URI as string;
 
